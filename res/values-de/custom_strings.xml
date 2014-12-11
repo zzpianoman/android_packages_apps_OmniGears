@@ -385,6 +385,23 @@
     <string name="icon_picker_sms">Nachrichten</string>
     <string name="icon_picker_twitter">Twitter</string>
 
+    <!-- Tinted statusbar -->
+    <string name="tinted_statusbar_title">Farben</string>
+    <string name="title_tinted_statusbar">Dynamischer Farbwechsel</string>
+    <string name="title_tinted_statusbar_option">Farbe ändern an</string>
+    <string name="tinted_statusbar_off">Deaktiviert</string>
+    <string name="tinted_statusbar_actionbar">Aktionsleistenfarbe</string>
+    <string name="tinted_statusbar_system">Bildschirmfarbe</string>
+    <string name="tinted_statusbar_statusbar">Statusleiste</string>
+    <string name="tinted_statusbar_navbar">Navigationsleiste</string>
+    <string name="tinted_statusbar_all">Beide</string>
+    <string name="tinted_statusbar_filter_title">Farben umkehren</string>
+    <string name="tinted_statusbar_filter_summary">Umkehren der Farben einschalten</string>
+    <string name="tinted_statusbar_full_mode_title">Farbe der Navigationsleiste</string>
+    <string name="tinted_statusbar_full_mode_summary">Aktuelle Farbe zur Navigationsleiste hinzufügen</string>
+    <string name="tinted_statusbar_transparent_title">Deckkraft der Statusleiste</string>
+    <string name="tinted_navbar_transparent_title">Deckkraft der Navigationsleiste</string>
+
     <!-- QuickSettings: Dynamic Row -->
     <string name="qs_configurable_title">Schnelleinstellungen konfigurierbar</string>
     <string name="qs_configurable_summary">Aktivieren/Deaktivieren dynamischer Zeilenänderungen</string>
