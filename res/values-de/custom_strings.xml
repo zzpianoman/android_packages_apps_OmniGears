@@ -109,4 +109,17 @@
   <string name="pulse_only_mode">Pulsieren (Standard)</string>
   <string name="swap_volume_buttons_title">Passend zur Bildschirmausrichtung</string>
   <string name="swap_volume_buttons_summary">Anpassen der Lautstärkentastenaktion an aktuelle Bildschirmausrichtung</string>
+  <string name="color_picker_dialog_title">Farbe</string>
+  <string name="battery_light_enable">Aktivieren</string>
+  <string name="battery_low_pulse_title">Bei schwachem Akku blinken</string>
+  <string name="battery_light_list_title">Farben</string>
+  <string name="battery_light_low_color_title">Akku schwach</string>
+  <string name="battery_light_medium_color_title">Akku wird geladen</string>
+  <string name="battery_light_full_color_title">Geladen (90%)</string>
+  <string name="battery_light_really_full_color_title">Voll geladen (100%)</string>
+  <string name="edit_battery_settings">Akku-Einstellungen bearbeiten</string>
+  <string name="notification_light_general_title">Allgemein</string>
+  <string name="led_color_green">Grün</string>
+  <string name="led_color_red">Rot</string>
+  <string name="led_color_blue">Blau</string>
 </resources>
