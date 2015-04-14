@@ -109,4 +109,17 @@
   <string name="pulse_only_mode">Blikání (výchozí)</string>
   <string name="swap_volume_buttons_title">Otáčet s rotací</string>
   <string name="swap_volume_buttons_summary">Přehození tlačítek hlasitosti při otočení zařízení</string>
+  <string name="color_picker_dialog_title">Barva</string>
+  <string name="battery_light_enable">Povolit</string>
+  <string name="battery_low_pulse_title">Blikat, pokud je baterie téměř vybitá</string>
+  <string name="battery_light_list_title">Barvy</string>
+  <string name="battery_light_low_color_title">Vybitá baterie</string>
+  <string name="battery_light_medium_color_title">Nabíjení</string>
+  <string name="battery_light_full_color_title">Nabito (90%)</string>
+  <string name="battery_light_really_full_color_title">Nabito (100%)</string>
+  <string name="edit_battery_settings">Upravit nastavení baterie</string>
+  <string name="notification_light_general_title">Obecné</string>
+  <string name="led_color_green">Zelená</string>
+  <string name="led_color_red">Červená</string>
+  <string name="led_color_blue">Modrá</string>
 </resources>
