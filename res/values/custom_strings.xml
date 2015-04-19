@@ -146,6 +146,13 @@
     <string name="led_color_red">Red</string>
     <string name="led_color_blue">Blue</string>
 
+    <string name="battery_title">Status bar battery</string>
+    <string name="battery_style_title">Style</string>
+    <string name="battery_percent_title">Show percent</string>
+    <string name="battery_percent_none">Never</string>
+    <string name="battery_percent_always">Always</string>
+    <string name="battery_percent_expanded">Expanded</string>
+
     <string name="button_brightness_title">Brightness</string>
     <string name="button_brightness_summary">Button backlight brightness</string>
     <string name="button_timeout_title">Backlight timeout</string>
