@@ -32,8 +32,6 @@
  */
 package org.omnirom.omnigears;
 
-import java.util.prefs.PreferenceChangeListener;
-
 import android.content.ContentResolver;
 import android.content.res.Resources;
 import android.content.Context;
@@ -64,7 +62,9 @@ import com.android.settings.Utils;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settings.search.Indexable;
-//import com.android.settings.preference.SystemCheckBoxPreference;
+import com.android.settings.preference.SystemCheckBoxPreference;
+
+import com.android.internal.util.omni.DeviceUtils;
 
 public class ButtonSettings extends SettingsPreferenceFragment implements OnPreferenceChangeListener, Indexable {
 
@@ -102,8 +102,8 @@ public class ButtonSettings extends SettingsPreferenceFragment implements OnPref
 //    private static final String VIRTUAL_KEY_HAPTIC_FEEDBACK = "virtual_key_haptic_feedback";
 //    private static final String FORCE_SHOW_OVERFLOW_MENU = "force_show_overflow_menu";
     private static final String KEYS_BRIGHTNESS_KEY = "button_brightness";
-//    private static final String KEYS_SHOW_NAVBAR_KEY = "navigation_bar_show";
-//    private static final String KEYS_DISABLE_HW_KEY = "hardware_keys_disable";
+    private static final String KEYS_SHOW_NAVBAR_KEY = "navigation_bar_show";
+    private static final String KEYS_DISABLE_HW_KEY = "hardware_keys_disable";
 
     // Available custom actions to perform on a key press.
     private static final int ACTION_NOTHING = 0;
@@ -151,8 +151,8 @@ public class ButtonSettings extends SettingsPreferenceFragment implements OnPref
 //    private CheckBoxPreference mVirtualKeyHapticFeedback;
 //    private CheckBoxPreference mForceShowOverflowMenu;
     private boolean mButtonBrightnessSupport;
-//    private CheckBoxPreference mEnableNavBar;
-//    private CheckBoxPreference mDisabkeHWKeys;
+    private SwitchPreference mEnableNavBar;
+    private SwitchPreference mDisabkeHWKeys;
     private PreferenceScreen mButtonBrightness;
     private PreferenceCategory mKeysBackCategory;
     private PreferenceCategory mKeysHomeCategory;
@@ -273,10 +273,10 @@ public class ButtonSettings extends SettingsPreferenceFragment implements OnPref
 //                    VIRTUAL_KEY_HAPTIC_FEEDBACK);
 //            mForceShowOverflowMenu = (CheckBoxPreference) prefScreen.findPreference(
 //                    FORCE_SHOW_OVERFLOW_MENU);
-//            mEnableNavBar = (CheckBoxPreference) prefScreen.findPreference(
-//                    KEYS_SHOW_NAVBAR_KEY);
-//            mDisabkeHWKeys = (CheckBoxPreference) prefScreen.findPreference(
-//                    KEYS_DISABLE_HW_KEY);
+            mEnableNavBar = (SwitchPreference) prefScreen.findPreference(
+                    KEYS_SHOW_NAVBAR_KEY);
+            mDisabkeHWKeys = (SwitchPreference) prefScreen.findPreference(
+                    KEYS_DISABLE_HW_KEY);
             mButtonBrightness = (PreferenceScreen) prefScreen.findPreference(
                     KEYS_BRIGHTNESS_KEY);
 
@@ -454,14 +454,19 @@ public class ButtonSettings extends SettingsPreferenceFragment implements OnPref
 //            mForceShowOverflowMenu.setChecked(Settings.System.getInt(resolver,
 //                    Settings.System.FORCE_SHOW_OVERFLOW_MENU, (!hasNavBar && hasMenuKey) ? 0 : 1) == 1);
 //
-//            boolean harwareKeysDisable = Settings.System.getInt(resolver,
-//                        Settings.System.HARDWARE_KEYS_DISABLE, 0) == 1;
-//            mDisabkeHWKeys.setChecked(harwareKeysDisable);
-//
+            boolean showNavBarDefault = DeviceUtils.deviceSupportNavigationBar(getActivity());
+            boolean showNavBar = Settings.System.getInt(resolver,
+                        Settings.System.NAVIGATION_BAR_SHOW, showNavBarDefault ? 1:0) == 1;
+            mEnableNavBar.setChecked(showNavBar);
+
+            boolean harwareKeysDisable = Settings.System.getInt(resolver,
+                        Settings.System.HARDWARE_KEYS_DISABLE, 0) == 1;
+            mDisabkeHWKeys.setChecked(harwareKeysDisable);
+
             if (!mButtonBrightnessSupport) {
                 keysCategory.removePreference(mButtonBrightness);
             }
-//            updateDisableHWKeyEnablement(harwareKeysDisable);
+            updateDisableHWKeyEnablement(harwareKeysDisable);
         }
 
 //        final PreferenceCategory headsethookCategory =
@@ -500,11 +505,17 @@ public class ButtonSettings extends SettingsPreferenceFragment implements OnPref
 //            Settings.System.putInt(getContentResolver(),
 //                    Settings.System.FORCE_SHOW_OVERFLOW_MENU, checked ? 1:0);
 //            return true;
-//        } else if (preference == mDisabkeHWKeys) {
-//            boolean checked = ((CheckBoxPreference)preference).isChecked();
-//            Settings.System.putInt(getContentResolver(),
-//                    Settings.System.HARDWARE_KEYS_DISABLE, checked ? 1:0);
-//            updateDisableHWKeyEnablement(checked);
+        }  else if (preference == mEnableNavBar) {
+            boolean checked = ((SwitchPreference)preference).isChecked();
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.NAVIGATION_BAR_SHOW, checked ? 1:0);
+            return true;
+        } else if (preference == mDisabkeHWKeys) {
+            boolean checked = ((SwitchPreference)preference).isChecked();
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.HARDWARE_KEYS_DISABLE, checked ? 1:0);
+            updateDisableHWKeyEnablement(checked);
+            return true;
         } else if (preference == mSwapVolumeButtons) {
             boolean checked = ((CheckBoxPreference)preference).isChecked();
             Settings.System.putInt(getContentResolver(),
@@ -530,9 +541,9 @@ public class ButtonSettings extends SettingsPreferenceFragment implements OnPref
             boolean value = (Boolean) newValue;
             Settings.System.putInt(getContentResolver(), Settings.System.HARDWARE_KEY_REBINDING,
                     value ? 1 : 0);
-//            boolean harwareKeysDisable = Settings.System.getInt(getContentResolver(),
-//                    Settings.System.HARDWARE_KEYS_DISABLE, 0) == 1;
-//            updateDisableHWKeyEnablement(harwareKeysDisable);
+            boolean harwareKeysDisable = Settings.System.getInt(getContentResolver(),
+                    Settings.System.HARDWARE_KEYS_DISABLE, 0) == 1;
+            updateDisableHWKeyEnablement(harwareKeysDisable);
             return true;
 //        } else if (preference == mVolumeKeyCursorControl) {
 //            String volumeKeyCursorControl = (String) newValue;
@@ -708,19 +719,20 @@ public class ButtonSettings extends SettingsPreferenceFragment implements OnPref
 //        list.setEntryValues(values.toArray(new CharSequence[values.size()]));
 //    }
 
-//    private void updateDisableHWKeyEnablement(boolean harwareKeysDisable) {
-//        boolean enableHWKeyRebinding = Settings.System.getInt(getContentResolver(),
-//                    Settings.System.HARDWARE_KEY_REBINDING, 0) == 1;
-//
+    private void updateDisableHWKeyEnablement(boolean harwareKeysDisable) {
+        boolean enableHWKeyRebinding = Settings.System.getInt(getContentResolver(),
+                    Settings.System.HARDWARE_KEY_REBINDING, 0) == 1;
+
 //        mVirtualKeyHapticFeedback.setEnabled(!harwareKeysDisable);
 //        mForceShowOverflowMenu.setEnabled(!harwareKeysDisable);
-//        mButtonBrightness.setEnabled(!harwareKeysDisable);
-//        mKeysHomeCategory.setEnabled(!harwareKeysDisable && enableHWKeyRebinding);
-//        mKeysBackCategory.setEnabled(!harwareKeysDisable && enableHWKeyRebinding);
-//        mKeysMenuCategory.setEnabled(!harwareKeysDisable && enableHWKeyRebinding);
-//        mKeysAppSwitchCategory.setEnabled(!harwareKeysDisable && enableHWKeyRebinding);
-//        mKeysAssistCategory.setEnabled(!harwareKeysDisable && enableHWKeyRebinding);
-//    }
+        mEnableCustomBindings.setEnabled(!harwareKeysDisable);
+        mButtonBrightness.setEnabled(!harwareKeysDisable);
+        mKeysHomeCategory.setEnabled(!harwareKeysDisable && enableHWKeyRebinding);
+        mKeysBackCategory.setEnabled(!harwareKeysDisable && enableHWKeyRebinding);
+        mKeysMenuCategory.setEnabled(!harwareKeysDisable && enableHWKeyRebinding);
+        mKeysAppSwitchCategory.setEnabled(!harwareKeysDisable && enableHWKeyRebinding);
+        mKeysAssistCategory.setEnabled(!harwareKeysDisable && enableHWKeyRebinding);
+    }
 
     public static final Indexable.SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
             new BaseSearchIndexProvider() {
