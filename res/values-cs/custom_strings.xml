@@ -122,4 +122,15 @@
   <string name="led_color_green">Zelená</string>
   <string name="led_color_red">Červená</string>
   <string name="led_color_blue">Modrá</string>
+  <string name="button_brightness_title">Jas</string>
+  <string name="button_brightness_summary">Intenzita podsvětlení tlačítek</string>
+  <string name="button_timeout_title">Prodleva vypnutí podsvětlení</string>
+  <string name="button_timeout_summary">Vypnuto na hodnotě 0</string>
+  <string name="button_no_brightness">Tmavý režim</string>
+  <string name="button_no_brightness_summary">Nenastavovat jas tlačítka</string>
+  <string name="button_link_brightness">Odkaz na displej</string>
+  <string name="button_link_brightness_summary">Použít úroveň jasu displeje</string>
+  <string name="button_manual_brightness">Úroveň jasu</string>
+  <string name="dialog_manual_brightness_title">Úroveň jasu</string>
+  <string name="unit_sec">sek</string>
 </resources>

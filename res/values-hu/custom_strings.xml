@@ -122,4 +122,15 @@
   <string name="led_color_green">Zöld</string>
   <string name="led_color_red">Vörös</string>
   <string name="led_color_blue">Kék</string>
+  <string name="button_brightness_title">Fényerő</string>
+  <string name="button_brightness_summary">Gomb háttérvilágítás</string>
+  <string name="button_timeout_title">Háttérvilágítás időkorlátja</string>
+  <string name="button_timeout_summary">A 0 érték esetén letiltva</string>
+  <string name="button_no_brightness">Sötét mód</string>
+  <string name="button_no_brightness_summary">Ne állítson be fényerőt a hardver gombra</string>
+  <string name="button_link_brightness">Képernyőhöz csatolás</string>
+  <string name="button_link_brightness_summary">Használja a képernyő fényerő szintjét</string>
+  <string name="button_manual_brightness">Fényerő szintek</string>
+  <string name="dialog_manual_brightness_title">Fényerő szintek</string>
+  <string name="unit_sec">mp</string>
 </resources>
