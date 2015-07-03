@@ -64,6 +64,8 @@ import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settings.search.Indexable;
 import com.android.settings.preference.SystemCheckBoxPreference;
 
+import com.android.internal.util.omni.OmniSwitchConstants;
+import com.android.internal.util.omni.PackageUtils;
 import com.android.internal.util.omni.DeviceUtils;
 
 public class ButtonSettings extends SettingsPreferenceFragment implements OnPreferenceChangeListener, Indexable {
@@ -562,6 +564,7 @@ public class ButtonSettings extends SettingsPreferenceFragment implements OnPref
                     Settings.System.KEY_BACK_ACTION, value);
             mKeySettings.put(Settings.System.KEY_BACK_ACTION, value);
             checkForHomeKey();
+            checkForOmniSwitchRecents();
             return true;
         } else if (preference == mBackLongPressAction) {
             int value = Integer.valueOf((String) newValue);
@@ -572,6 +575,7 @@ public class ButtonSettings extends SettingsPreferenceFragment implements OnPref
                     Settings.System.KEY_BACK_LONG_PRESS_ACTION, value);
             mKeySettings.put(Settings.System.KEY_BACK_LONG_PRESS_ACTION, value);
             checkForHomeKey();
+            checkForOmniSwitchRecents();
             return true;
         } else if (preference == mHomePressAction) {
             int value = Integer.valueOf((String) newValue);
@@ -582,6 +586,7 @@ public class ButtonSettings extends SettingsPreferenceFragment implements OnPref
                     Settings.System.KEY_HOME_ACTION, value);
             mKeySettings.put(Settings.System.KEY_HOME_ACTION, value);
             checkForHomeKey();
+            checkForOmniSwitchRecents();
             return true;
         } else if (preference == mHomeLongPressAction) {
             int value = Integer.valueOf((String) newValue);
@@ -592,6 +597,7 @@ public class ButtonSettings extends SettingsPreferenceFragment implements OnPref
                     Settings.System.KEY_HOME_LONG_PRESS_ACTION, value);
             mKeySettings.put(Settings.System.KEY_HOME_LONG_PRESS_ACTION, value);
             checkForHomeKey();
+            checkForOmniSwitchRecents();
             return true;
         } else if (preference == mHomeDoubleTapAction) {
             int value = Integer.valueOf((String) newValue);
@@ -602,6 +608,7 @@ public class ButtonSettings extends SettingsPreferenceFragment implements OnPref
                     Settings.System.KEY_HOME_DOUBLE_TAP_ACTION, value);
             mKeySettings.put(Settings.System.KEY_HOME_DOUBLE_TAP_ACTION, value);
             checkForHomeKey();
+            checkForOmniSwitchRecents();
             return true;
         } else if (preference == mMenuPressAction) {
             int value = Integer.valueOf((String) newValue);
@@ -612,6 +619,7 @@ public class ButtonSettings extends SettingsPreferenceFragment implements OnPref
                     Settings.System.KEY_MENU_ACTION, value);
             mKeySettings.put(Settings.System.KEY_MENU_ACTION, value);
             checkForHomeKey();
+            checkForOmniSwitchRecents();
             return true;
         } else if (preference == mMenuLongPressAction) {
             int value = Integer.valueOf((String) newValue);
@@ -622,6 +630,7 @@ public class ButtonSettings extends SettingsPreferenceFragment implements OnPref
                     Settings.System.KEY_MENU_LONG_PRESS_ACTION, value);
             mKeySettings.put(Settings.System.KEY_MENU_LONG_PRESS_ACTION, value);
             checkForHomeKey();
+            checkForOmniSwitchRecents();
             return true;
         } else if (preference == mAssistPressAction) {
             int value = Integer.valueOf((String) newValue);
@@ -632,6 +641,7 @@ public class ButtonSettings extends SettingsPreferenceFragment implements OnPref
                     Settings.System.KEY_ASSIST_ACTION, value);
             mKeySettings.put(Settings.System.KEY_ASSIST_ACTION, value);
             checkForHomeKey();
+            checkForOmniSwitchRecents();
             return true;
         } else if (preference == mAssistLongPressAction) {
             int value = Integer.valueOf((String) newValue);
@@ -642,6 +652,7 @@ public class ButtonSettings extends SettingsPreferenceFragment implements OnPref
                     Settings.System.KEY_ASSIST_LONG_PRESS_ACTION, value);
             mKeySettings.put(Settings.System.KEY_ASSIST_LONG_PRESS_ACTION, value);
             checkForHomeKey();
+            checkForOmniSwitchRecents();
             return true;
         } else if (preference == mAppSwitchPressAction) {
             int value = Integer.valueOf((String) newValue);
@@ -652,6 +663,7 @@ public class ButtonSettings extends SettingsPreferenceFragment implements OnPref
                     Settings.System.KEY_APP_SWITCH_ACTION, value);
             mKeySettings.put(Settings.System.KEY_APP_SWITCH_ACTION, value);
             checkForHomeKey();
+            checkForOmniSwitchRecents();
             return true;
         } else if (preference == mAppSwitchLongPressAction) {
             int value = Integer.valueOf((String) newValue);
@@ -662,6 +674,7 @@ public class ButtonSettings extends SettingsPreferenceFragment implements OnPref
                     Settings.System.KEY_APP_SWITCH_LONG_PRESS_ACTION, value);
             mKeySettings.put(Settings.System.KEY_APP_SWITCH_LONG_PRESS_ACTION, value);
             checkForHomeKey();
+            checkForOmniSwitchRecents();
             return true;
 //        } else if (preference == mVolumeDefault) {
 //            int value = Integer.valueOf((String) newValue);
@@ -686,6 +699,17 @@ public class ButtonSettings extends SettingsPreferenceFragment implements OnPref
         return false;
     }
 
+    private boolean hasOmniSwitchKey() {
+        Iterator<Integer> nextAction = mKeySettings.values().iterator();
+        while (nextAction.hasNext()) {
+            int action = nextAction.next();
+            if (action == ACTION_OMNISWITCH) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void checkForHomeKey() {
         if (!hasHomeKey()) {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
@@ -699,6 +723,16 @@ public class ButtonSettings extends SettingsPreferenceFragment implements OnPref
                   });
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
+        }
+    }
+
+    private void checkForOmniSwitchRecents() {
+        if (hasOmniSwitchKey()) {
+            if (!isOmniSwitchInstalled()){
+                doOmniSwitchUnavail();
+            } else if (!OmniSwitchConstants.isOmniSwitchRunning(getActivity())) {
+                doOmniSwitchConfig();
+            }
         }
     }
 
@@ -732,6 +766,31 @@ public class ButtonSettings extends SettingsPreferenceFragment implements OnPref
         mKeysMenuCategory.setEnabled(!harwareKeysDisable && enableHWKeyRebinding);
         mKeysAppSwitchCategory.setEnabled(!harwareKeysDisable && enableHWKeyRebinding);
         mKeysAssistCategory.setEnabled(!harwareKeysDisable && enableHWKeyRebinding);
+    }
+
+    private void doOmniSwitchConfig() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+        alertDialogBuilder.setTitle(R.string.omniswitch_title);
+        alertDialogBuilder.setMessage(R.string.omniswitch_dialog_running)
+            .setPositiveButton(R.string.omniswitch_settings, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog,int id) {
+                    startActivity(OmniSwitchConstants.INTENT_LAUNCH_APP);
+                }
+            });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    private void doOmniSwitchUnavail() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+        alertDialogBuilder.setTitle(R.string.omniswitch_title);
+        alertDialogBuilder.setMessage(R.string.omniswitch_dialog_unavail);
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    private boolean isOmniSwitchInstalled() {
+        return PackageUtils.isAvailableApp(OmniSwitchConstants.APP_PACKAGE_NAME, getActivity());
     }
 
     public static final Indexable.SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =

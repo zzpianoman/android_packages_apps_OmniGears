@@ -41,7 +41,7 @@
     <string name="keys_app_switch_long_press_title">App switch key (long press)</string>
     <string name="keys_action_nothing">No action</string>
     <string name="keys_action_menu">Open/close menu</string>
-    <string name="keys_action_app_switch">Recent apps switcher</string>
+    <string name="keys_action_app_switch">AOSP recents</string>
     <string name="keys_action_search">Search assistant</string>
     <string name="keys_action_voice_search">Voice search</string>
     <string name="keys_action_in_app_search">In-app search</string>
@@ -169,4 +169,11 @@
     <string name="navigation_bar_show_summary">Force enable navigation bar</string>
     <string name="hardware_keys_disable_title">Disable keys</string>
     <string name="hardware_keys_disable_summary">Force disable hardware keys</string>
+
+    <string name="navbar_title">Navigation bar</string>
+    <string name="navbar_recents_style_title">Recents style</string>
+    <string name="omniswitch_settings">Settings</string>
+    <string name="omniswitch_dialog_running">OmniSwitch is not running. Please make sure to enable it before enabling it as recents.</string>
+    <string name="omniswitch_dialog_unavail">OmniSwitch is not installed.</string>
+    <string name="omniswitch_title">OmniSwitch</string>
 </resources>

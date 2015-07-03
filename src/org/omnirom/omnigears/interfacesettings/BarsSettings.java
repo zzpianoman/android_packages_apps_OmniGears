@@ -18,8 +18,10 @@
 
 package org.omnirom.omnigears.interfacesettings;
 
+import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.RemoteException;
@@ -39,6 +41,9 @@ import com.android.settings.Utils;
 import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settings.search.Indexable;
 
+import com.android.internal.util.omni.OmniSwitchConstants;
+import com.android.internal.util.omni.PackageUtils;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -48,16 +53,19 @@ public class BarsSettings extends SettingsPreferenceFragment implements
 
     private static final String STATUSBAR_BATTERY_STYLE = "statusbar_battery_style";
     private static final String STATUSBAR_BATTERY_PERCENT = "statusbar_battery_percent";
+    private static final String NAVIGATION_BAR_CATEGORY = "navbar_category";
+    private static final String NAVIGATION_BAR_RECENTS_STYLE = "navbar_recents_style";
 
     private ListPreference mBatteryStyle;
     private ListPreference mBatteryPercent;
+    private ListPreference mNavbarRecentsStyle;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.bars_settings);
 
-        PreferenceScreen prefSet = getPreferenceScreen();
+        PreferenceScreen prefScreen = getPreferenceScreen();
         ContentResolver resolver = getActivity().getContentResolver();
 
         mBatteryStyle = (ListPreference) findPreference(STATUSBAR_BATTERY_STYLE);
@@ -75,6 +83,18 @@ public class BarsSettings extends SettingsPreferenceFragment implements
         mBatteryPercent.setValue(Integer.toString(batteryPercent));
         mBatteryPercent.setSummary(mBatteryPercent.getEntry());
         mBatteryPercent.setOnPreferenceChangeListener(this);
+
+        final boolean showNavBar = DeviceUtils.deviceSupportNavigationBar(getActivity());
+        final PreferenceCategory navbarCategory =
+                (PreferenceCategory) prefScreen.findPreference(NAVIGATION_BAR_CATEGORY);
+
+        mNavbarRecentsStyle = (ListPreference) findPreference(NAVIGATION_BAR_RECENTS_STYLE);
+        int recentsStyle = Settings.System.getInt(resolver,
+                Settings.System.NAVIGATION_BAR_RECENTS, 0);
+
+        mNavbarRecentsStyle.setValue(Integer.toString(recentsStyle));
+        mNavbarRecentsStyle.setSummary(mNavbarRecentsStyle.getEntry());
+        mNavbarRecentsStyle.setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -100,9 +120,48 @@ public class BarsSettings extends SettingsPreferenceFragment implements
                     mBatteryPercent.getEntries()[index]);
             Settings.System.putInt(getContentResolver(),
                     Settings.System.STATUSBAR_BATTERY_PERCENT, value);
+        } else if (preference == mNavbarRecentsStyle) {
+            int value = Integer.valueOf((String) newValue);
+            if (value == 1) {
+                if (!isOmniSwitchInstalled()){
+                    doOmniSwitchUnavail();
+                } else if (!OmniSwitchConstants.isOmniSwitchRunning(getActivity())) {
+                    doOmniSwitchConfig();
+                }
+            }
+            int index = mNavbarRecentsStyle.findIndexOfValue((String) newValue);
+            mNavbarRecentsStyle.setSummary(
+                    mNavbarRecentsStyle.getEntries()[index]);
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.NAVIGATION_BAR_RECENTS, value);
         }
 
         return true;
+    }
+
+    private void doOmniSwitchConfig() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+        alertDialogBuilder.setTitle(R.string.omniswitch_title);
+        alertDialogBuilder.setMessage(R.string.omniswitch_dialog_running)
+            .setPositiveButton(R.string.omniswitch_settings,new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog,int id) {
+                    startActivity(OmniSwitchConstants.INTENT_LAUNCH_APP);
+                }
+            });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    private void doOmniSwitchUnavail() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+        alertDialogBuilder.setTitle(R.string.omniswitch_title);
+        alertDialogBuilder.setMessage(R.string.omniswitch_dialog_unavail);
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    private boolean isOmniSwitchInstalled() {
+        return PackageUtils.isAvailableApp(OmniSwitchConstants.APP_PACKAGE_NAME, getActivity());
     }
 
     public static final Indexable.SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =

@@ -34,7 +34,18 @@
                 android:entries="@array/entries_battery_percent"
                 android:entryValues="@array/values_battery_percent"
                 android:persistent="false"/>
+        </PreferenceCategory>
 
+        <PreferenceCategory
+            android:key="navbar_category"
+            android:title="@string/navbar_title" >
+
+            <ListPreference
+                android:key="navbar_recents_style"
+                android:title="@string/navbar_recents_style_title"
+                android:entries="@array/navbar_recents_style_entries"
+                android:entryValues="@array/navbar_recents_style_values"
+                android:persistent="false"/>
         </PreferenceCategory>
 
 </PreferenceScreen>
