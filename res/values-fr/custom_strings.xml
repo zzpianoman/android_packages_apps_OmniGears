@@ -24,8 +24,7 @@
   <string name="button_keys_home_title">Bouton Accueil</string>
   <string name="button_keys_menu_title">Bouton Menu</string>
   <string name="button_keys_assist_title">Bouton Recherche</string>
-  <string name="button_keys_appSwitch_title">Bouton Applications récentes</string>
-  <string name="keys_enable_custom_title">Bouton personnalisé</string>
+  <string name="keys_enable_custom_title">Actions personnalisées</string>
   <string name="keys_back_press_title">Bouton Retour</string>
   <string name="keys_back_long_press_title">Bouton Retour (appui long)</string>
   <string name="keys_home_press_title">Bouton Accueil</string>
@@ -37,9 +36,8 @@
   <string name="keys_assist_long_press_title">Bouton recherche (appui long)</string>
   <string name="keys_app_switch_press_title">Bouton Applications récentes</string>
   <string name="keys_app_switch_long_press_title">Bouton Applications récentes (appui long)</string>
-  <string name="keys_action_nothing">Aucune d\'action</string>
+  <string name="keys_action_nothing">Aucune action</string>
   <string name="keys_action_menu">Menu Ouvrir/Fermer</string>
-  <string name="keys_action_app_switch">Applications récentes</string>
   <string name="keys_action_search">Assistant de recherche</string>
   <string name="keys_action_voice_search">Recherche vocale</string>
   <string name="keys_action_in_app_search">Recherche dans l\'application</string>
@@ -81,7 +79,7 @@
   <string name="doze_shake_acc_threshold_title">Seuil de secousse</string>
   <string name="doze_shake_acc_threshold_summary">Configurer la force de la secousse nécessaire à l\'activation</string>
   <string name="doze_time_mode_title">Afficher la date et l\'heure</string>
-  <string name="doze_time_mode_summary">Forcer l\'affichage de l\'heure quand il n\'y a aucune notifications</string>
+  <string name="doze_time_mode_summary">Forcer l\'affichage de l\'heure quand il n\'y a aucune notification</string>
   <string name="twohundred_ms">200 ms</string>
   <string name="fivehundred_ms">500 ms</string>
   <string name="one_second">1 s</string>
@@ -117,6 +115,12 @@
   <string name="led_color_green">Vert</string>
   <string name="led_color_red">Rouge</string>
   <string name="led_color_blue">Bleu</string>
+  <string name="battery_title">Batterie de la barre de statut</string>
+  <string name="battery_style_title">Style</string>
+  <string name="battery_percent_title">Afficher le pourcentage</string>
+  <string name="battery_percent_none">Jamais</string>
+  <string name="battery_percent_always">Toujours</string>
+  <string name="battery_percent_expanded">Étendu</string>
   <string name="button_brightness_title">Luminosité</string>
   <string name="button_brightness_summary">Luminosité du rétro-éclairage des boutons</string>
   <string name="button_timeout_title">Délai d\'extinction du rétro-éclairage</string>
@@ -128,4 +132,11 @@
   <string name="button_manual_brightness">Niveau de luminosité</string>
   <string name="dialog_manual_brightness_title">Niveau de luminosité</string>
   <string name="unit_sec">sec</string>
+  <string name="navigation_bar_show_title">Afficher la barre de navigation</string>
+  <string name="hardware_keys_disable_title">Désactiver les touches</string>
+  <string name="hardware_keys_disable_summary">Forcer la désactivation des boutons matériels</string>
+  <string name="navbar_title">Barre de navigation</string>
+  <string name="omniswitch_settings">Paramètres</string>
+  <string name="omniswitch_dialog_unavail">OmniSwitch n\'est pas installé.</string>
+  <string name="omniswitch_title">OmniSwitch</string>
 </resources>

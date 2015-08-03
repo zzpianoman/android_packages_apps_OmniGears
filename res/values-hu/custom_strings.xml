@@ -39,7 +39,7 @@
   <string name="keys_app_switch_long_press_title">Alkalmazás váltó gomb (hosszan nyomva)</string>
   <string name="keys_action_nothing">Nincs esemény</string>
   <string name="keys_action_menu">Menü megnyitása/bezárása</string>
-  <string name="keys_action_app_switch">Legutóbbi alkalmazások váltó</string>
+  <string name="keys_action_app_switch">AOSP előzmények</string>
   <string name="keys_action_search">Keresősegéd</string>
   <string name="keys_action_voice_search">Hangalapú keresés</string>
   <string name="keys_action_in_app_search">Alkalmazáson belüli keresés</string>
@@ -122,6 +122,12 @@
   <string name="led_color_green">Zöld</string>
   <string name="led_color_red">Vörös</string>
   <string name="led_color_blue">Kék</string>
+  <string name="battery_title">Állapotsori akkumulátor</string>
+  <string name="battery_style_title">Stílus</string>
+  <string name="battery_percent_title">Százalék megjelenítése</string>
+  <string name="battery_percent_none">Soha</string>
+  <string name="battery_percent_always">Mindig</string>
+  <string name="battery_percent_expanded">Kiterjesztett</string>
   <string name="button_brightness_title">Fényerő</string>
   <string name="button_brightness_summary">Gomb háttérvilágítás</string>
   <string name="button_timeout_title">Háttérvilágítás időkorlátja</string>
@@ -133,4 +139,14 @@
   <string name="button_manual_brightness">Fényerő szintek</string>
   <string name="dialog_manual_brightness_title">Fényerő szintek</string>
   <string name="unit_sec">mp</string>
+  <string name="navigation_bar_show_title">Navigációs sáv megjelenítése</string>
+  <string name="navigation_bar_show_summary">Navigációs sáv engedélyezésének kényszerítése</string>
+  <string name="hardware_keys_disable_title">Gombok letiltása</string>
+  <string name="hardware_keys_disable_summary">Hardveres gombok tiltásának kényszerítése</string>
+  <string name="navbar_title">Navigációs sáv</string>
+  <string name="navbar_recents_style_title">Előzmények stílusa</string>
+  <string name="omniswitch_settings">Beállítások</string>
+  <string name="omniswitch_dialog_running">OmniSwitch nem fut. Kérjük, győződjön meg róla, hogy engedélyezte, mielőtt az előzményekhez használná.</string>
+  <string name="omniswitch_dialog_unavail">OmniSwitch nincs telepítve.</string>
+  <string name="omniswitch_title">OmniSwitch</string>
 </resources>

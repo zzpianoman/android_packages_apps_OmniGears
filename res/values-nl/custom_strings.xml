@@ -39,7 +39,6 @@
   <string name="keys_app_switch_long_press_title">App switch knop (ingedrukt houden)</string>
   <string name="keys_action_nothing">Geen actie</string>
   <string name="keys_action_menu">Openen/sluiten menu</string>
-  <string name="keys_action_app_switch">Recente apps switcher</string>
   <string name="keys_action_search">Zoek assistent</string>
   <string name="keys_action_voice_search">Spraakgestuurd zoeken</string>
   <string name="keys_action_in_app_search">In-app zoeken</string>

@@ -39,7 +39,7 @@
   <string name="keys_app_switch_long_press_title">Přepínač aplikací (dlouhý stisk)</string>
   <string name="keys_action_nothing">Žádná akce</string>
   <string name="keys_action_menu">Otevřít/zavřít menu</string>
-  <string name="keys_action_app_switch">Přepínač nedávných aplikací</string>
+  <string name="keys_action_app_switch">Nedávné AOSP</string>
   <string name="keys_action_search">Vyhledávací asistent</string>
   <string name="keys_action_voice_search">Hlasové vyhledávání</string>
   <string name="keys_action_in_app_search">Hledat v aplikacích</string>
@@ -122,6 +122,12 @@
   <string name="led_color_green">Zelená</string>
   <string name="led_color_red">Červená</string>
   <string name="led_color_blue">Modrá</string>
+  <string name="battery_title">Stavový pruh baterie</string>
+  <string name="battery_style_title">Vzhled</string>
+  <string name="battery_percent_title">Zobrazit procenta</string>
+  <string name="battery_percent_none">Nikdy</string>
+  <string name="battery_percent_always">Vždy</string>
+  <string name="battery_percent_expanded">Rozšířené</string>
   <string name="button_brightness_title">Jas</string>
   <string name="button_brightness_summary">Intenzita podsvětlení tlačítek</string>
   <string name="button_timeout_title">Prodleva vypnutí podsvětlení</string>
@@ -133,4 +139,14 @@
   <string name="button_manual_brightness">Úroveň jasu</string>
   <string name="dialog_manual_brightness_title">Úroveň jasu</string>
   <string name="unit_sec">sek</string>
+  <string name="navigation_bar_show_title">Zobrazit navigační panel</string>
+  <string name="navigation_bar_show_summary">Rychlé zapnutí navigačního panelu</string>
+  <string name="hardware_keys_disable_title">Blokování hardwarových tlačítek</string>
+  <string name="hardware_keys_disable_summary">Rychlé zablokování hardwarových tlačítek</string>
+  <string name="navbar_title">Navigační lišta</string>
+  <string name="navbar_recents_style_title">Styl nedávných</string>
+  <string name="omniswitch_settings">Nastavení</string>
+  <string name="omniswitch_dialog_running">Aplikace OmniSwitch není spuštěna. Prosím ujistěte se, aby byla před použitím povolena.</string>
+  <string name="omniswitch_dialog_unavail">OmniSwitch není nainstalována.</string>
+  <string name="omniswitch_title">OmniSwitch</string>
 </resources>

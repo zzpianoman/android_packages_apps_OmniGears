@@ -39,7 +39,6 @@
   <string name="keys_app_switch_long_press_title">Przycisk przełączenia aplikacji (przytrzymanie)</string>
   <string name="keys_action_nothing">Brak akcji</string>
   <string name="keys_action_menu">Otwórz/zamknij menu</string>
-  <string name="keys_action_app_switch">Przełączanie ostatnich aplikacji</string>
   <string name="keys_action_search">Asystent wyszukiwania</string>
   <string name="keys_action_voice_search">Wyszukiwanie głosowe</string>
   <string name="keys_action_in_app_search">Wyszukiwanie wewnątrz aplikacji</string>
@@ -102,7 +101,10 @@
   <string name="veryhard_shake">Bardzo mocne</string>
   <string name="strong_shake">Silne</string>
   <string name="fully_mode">Tryb pełny</string>
+  <string name="pocket_shake_mode">Kieszeń i wstrząśnięcie</string>
+  <string name="pocket_pulse_mode">Kieszeń i pulsowanie</string>
   <string name="pocket_only_mode">Tryb kieszonkowy</string>
+  <string name="shake_pulse_mode">Wstrząśnięcie i pulsowanie</string>
   <string name="pulse_only_mode">Pulsowanie (domyślne)</string>
   <string name="swap_volume_buttons_title">Dopasowanie obrotu</string>
   <string name="swap_volume_buttons_summary">Dostosuj działanie przycisków głośności do obecnej pozycji urządzenia</string>
@@ -119,4 +121,25 @@
   <string name="led_color_green">ZIelony</string>
   <string name="led_color_red">Czerwony</string>
   <string name="led_color_blue">Niebieski</string>
+  <string name="battery_title">Wskaźnik baterii</string>
+  <string name="battery_style_title">Styl</string>
+  <string name="battery_percent_title">Pokaż procent</string>
+  <string name="battery_percent_none">Nigdy</string>
+  <string name="battery_percent_always">Zawsze</string>
+  <string name="battery_percent_expanded">Rozwinięty</string>
+  <string name="button_brightness_title">Jasność</string>
+  <string name="button_brightness_summary">Jasność podświetlenia przycisków</string>
+  <string name="button_timeout_title">Opóźnienie podświetlenia</string>
+  <string name="button_timeout_summary">Wyłączone dla wartości 0</string>
+  <string name="button_no_brightness">Tryb ciemny</string>
+  <string name="button_no_brightness_summary">Nie ustawiaj jasności przycisków</string>
+  <string name="button_link_brightness">Powiąż z ekranem</string>
+  <string name="button_link_brightness_summary">Użyj poziomu jasności ekranu</string>
+  <string name="button_manual_brightness">Poziom jasności</string>
+  <string name="dialog_manual_brightness_title">Poziom jasności</string>
+  <string name="unit_sec">sek</string>
+  <string name="navigation_bar_show_title">Pokaż pasek nawigacyjny</string>
+  <string name="navigation_bar_show_summary">Wymuś pasek nawigacyjny</string>
+  <string name="hardware_keys_disable_title">Wyłącz klawisze</string>
+  <string name="hardware_keys_disable_summary">Wymuś wyłączenie klawiszy sprzętowych</string>
 </resources>
