@@ -176,4 +176,6 @@
     <string name="omniswitch_dialog_running">OmniSwitch is not running. Please make sure to enable it before enabling it as recents.</string>
     <string name="omniswitch_dialog_unavail">OmniSwitch is not installed.</string>
     <string name="omniswitch_title">OmniSwitch</string>
+
+    <string name="doze_brightness_level_title">Brightness level</string>
 </resources>
