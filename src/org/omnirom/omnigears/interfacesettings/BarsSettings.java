@@ -20,16 +20,20 @@ package org.omnirom.omnigears.interfacesettings;
 
 import android.app.AlertDialog;
 import android.content.ContentResolver;
+import android.database.ContentObserver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.RemoteException;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceScreen;
 import android.preference.PreferenceCategory;
+import android.preference.SwitchPreference;
 import android.provider.SearchIndexableResource;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
@@ -55,10 +59,12 @@ public class BarsSettings extends SettingsPreferenceFragment implements
     private static final String STATUSBAR_BATTERY_PERCENT = "statusbar_battery_percent";
     private static final String NAVIGATION_BAR_CATEGORY = "navbar_category";
     private static final String NAVIGATION_BAR_RECENTS_STYLE = "navbar_recents_style";
+    private static final String STATUS_BAR_BRIGHTNESS_CONTROL = "status_bar_brightness_control";
 
     private ListPreference mBatteryStyle;
     private ListPreference mBatteryPercent;
     private ListPreference mNavbarRecentsStyle;
+    private SwitchPreference mStatusBarBrightnessControl;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -95,6 +101,17 @@ public class BarsSettings extends SettingsPreferenceFragment implements
         mNavbarRecentsStyle.setValue(Integer.toString(recentsStyle));
         mNavbarRecentsStyle.setSummary(mNavbarRecentsStyle.getEntry());
         mNavbarRecentsStyle.setOnPreferenceChangeListener(this);
+
+        // Start observing for changes on auto brightness
+        StatusBarBrightnessChangedObserver statusBarBrightnessChangedObserver =
+                new StatusBarBrightnessChangedObserver(new Handler());
+        statusBarBrightnessChangedObserver.startObserving();
+
+        mStatusBarBrightnessControl =
+            (SwitchPreference) prefScreen.findPreference(STATUS_BAR_BRIGHTNESS_CONTROL);
+        mStatusBarBrightnessControl.setChecked((Settings.System.getInt(getContentResolver(),
+                            Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL, 0) == 1));
+        mStatusBarBrightnessControl.setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -134,9 +151,55 @@ public class BarsSettings extends SettingsPreferenceFragment implements
                     mNavbarRecentsStyle.getEntries()[index]);
             Settings.System.putInt(getContentResolver(),
                     Settings.System.NAVIGATION_BAR_RECENTS, value);
+        } else if (preference == mStatusBarBrightnessControl) {
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL,
+                    (Boolean) newValue ? 1 : 0);
+        }
+        return true;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateStatusBarBrightnessControl();
+    }
+
+    private void updateStatusBarBrightnessControl() {
+        try {
+            if (mStatusBarBrightnessControl != null) {
+                int mode = Settings.System.getIntForUser(getContentResolver(),
+                    Settings.System.SCREEN_BRIGHTNESS_MODE,
+                    Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
+
+                if (mode == Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC) {
+                    mStatusBarBrightnessControl.setEnabled(false);
+                    mStatusBarBrightnessControl.setSummary(R.string.status_bar_toggle_info);
+                } else {
+                    mStatusBarBrightnessControl.setEnabled(true);
+                    mStatusBarBrightnessControl.setSummary(
+                        R.string.status_bar_toggle_brightness_summary);
+                }
+            }
+        } catch (SettingNotFoundException e) {
+        }
+    }
+
+    private class StatusBarBrightnessChangedObserver extends ContentObserver {
+        public StatusBarBrightnessChangedObserver(Handler handler) {
+            super(handler);
         }
 
-        return true;
+        @Override
+        public void onChange(boolean selfChange) {
+            updateStatusBarBrightnessControl();
+        }
+
+        public void startObserving() {
+            getContentResolver().registerContentObserver(
+                    Settings.System.getUriFor(Settings.System.SCREEN_BRIGHTNESS_MODE),
+                    false, this);
+        }
     }
 
     private void doOmniSwitchConfig() {
