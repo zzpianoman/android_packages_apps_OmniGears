@@ -37,6 +37,16 @@
         </PreferenceCategory>
 
         <PreferenceCategory
+                android:title="@string/status_bar_options_title" >
+
+            <com.android.settings.slim.SystemSettingSwitchPreference
+                android:key="double_tap_sleep_gesture"
+                android:title="@string/double_tap_to_sleep_title"
+                android:summary="@string/double_tap_to_sleep_summary"
+                android:defaultValue="true" />
+        </PreferenceCategory>
+
+        <PreferenceCategory
             android:key="notification_category"
             android:title="@string/notification_title" >
 
